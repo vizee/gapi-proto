@@ -1,0 +1,54 @@
+syntax = "proto3";
+
+package gapi;
+
+option go_package = "github.com/vizee/gapi-proto-go/gapi";
+
+import "google/protobuf/descriptor.proto";
+
+message CustomPattern {
+    string method = 1;
+    string path = 2;
+}
+
+message Http {
+    oneof pattern {
+        string get = 1;
+        string post = 2;
+        string put = 3;
+        string delete = 4;
+        string patch = 5;
+        CustomPattern custom = 6;
+    }
+    repeated string use = 7;
+    string handler = 8;
+    int64 timeout = 9;
+}
+
+extend google.protobuf.MethodOptions {
+    Http http = 1143202;
+}
+
+extend google.protobuf.ServiceOptions {
+    string server = 2143202;
+    string default_handler = 2143203;
+    int32 default_timeout = 2143204;
+    string path_prefix = 2143205;
+    repeated string use = 2143206;
+}
+
+enum FIELD_BIND {
+    FROM_DEFAULT = 0; // determined by handler
+    FROM_QUERY = 1;
+    FROM_PARAMS = 2;
+    FROM_HEADER = 3;
+    FROM_CONTEXT = 4;
+}
+
+extend google.protobuf.FieldOptions {
+    FIELD_BIND bind = 4143202;
+    string alias = 4143203;
+    bool omit_empty = 4143204;
+    bool raw_data = 4143205;
+    bool embed = 4143206;
+}
