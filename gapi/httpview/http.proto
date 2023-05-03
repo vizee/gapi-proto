@@ -1,0 +1,19 @@
+syntax = "proto3";
+
+package gapi.httpview;
+
+option go_package = "github.com/vizee/gapi-proto-go/gapi/httpview";
+
+message HttpRequest {
+    string path = 1;
+    string query = 2;
+    map<string, string> headers = 3;
+    repeated string params = 4;
+    bytes body = 5;
+}
+
+message HttpResponse {
+    int32 status = 1;
+    map<string, string> headers = 2;
+    bytes body = 3;
+}
