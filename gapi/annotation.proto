@@ -32,7 +32,7 @@ extend google.protobuf.MethodOptions {
 extend google.protobuf.ServiceOptions {
     string server = 2143202;
     string default_handler = 2143203;
-    int32 default_timeout = 2143204;
+    int64 default_timeout = 2143204;
     string path_prefix = 2143205;
     repeated string use = 2143206;
 }
